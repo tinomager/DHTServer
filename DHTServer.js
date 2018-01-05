@@ -10,10 +10,10 @@ app.get('/', (request, response) => {
 	{
 		var message = '';
 		if(!err){
-			message = '{ temp: '+ temp.toFixed(4) +', hum: '+ hum.toFixed(4) +' }';
+			message = '{ "temp": '+ temp.toFixed(4) +', "hum": '+ hum.toFixed(4) +' }';
 		}
 		else{			
-			message = '{ error: ' + err + ' }';
+			message = '{ "error": ' + err + ' }';
 		}
 		response.send(message);
 	});
