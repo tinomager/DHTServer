@@ -1,10 +1,12 @@
 const express = require('express')
+var config = require('./config')
+
 const app = express()
-const port = 3000
+const port = config.webserver_port
 
 app.get('/', (request, response) => {
     //Todo: Add DHT code here
-  response.send('Hello from Express!')
+  response.send('Hello from DHT Server!')
 })
 
 app.listen(port, (err) => {
