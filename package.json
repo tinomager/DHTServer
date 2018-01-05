@@ -1,0 +1,27 @@
+{
+  "name": "dhtserver",
+  "version": "1.0.0",
+  "description": "A simple service to provide the values of a DHT22 sensor. Built for running on a Raspberry Pi 3.",
+  "main": "DHTServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinomager/DHTServer.git"
+  },
+  "keywords": [
+    "DHT",
+    "nodejs",
+    "webservice"
+  ],
+  "author": "Tino Mager",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tinomager/DHTServer/issues"
+  },
+  "homepage": "https://github.com/tinomager/DHTServer#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
