@@ -19,6 +19,11 @@ app.get('/', (request, response) => {
 	});
 })
 
+app.get('/downloadlogs', (request, response) => {
+	var filename = config.logfile_directory + '/' + config.logfile_filename;
+	response.download(filename);
+})
+
 app.listen(port, (err) => {
   if (err) {
     return console.log('something bad happened', err)
