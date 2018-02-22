@@ -1,6 +1,7 @@
 const express = require('express')
 var sensor = require('node-dht-sensor')
 var config = require('./config')
+const fs = require('fs');
 
 const app = express()
 const port = config.webserver_port
@@ -16,6 +17,18 @@ app.get('/', (request, response) => {
 			message = '{ "error": ' + err + ' }';
 		}
 		response.send(message);
+		console.log('message was sent: ' + message);
+
+		var logstring = '' + temp + ',' + hum + ',' + new Date().toUTCString();
+		var filename = config.logfile_directory + '/' + config.logfile_filename;
+		fs.appendFile(filename, logstring, function (err) {
+			if (err){
+				console.log('cannot save logstring to file: '+ logstring);
+			}
+			else{
+				console.log('logstring successfully saved: '+ logstring);
+			}		
+		});
 	});
 })
 
