@@ -39,7 +39,7 @@ app.get('/downloadlogs', (request, response) => {
 
 app.listen(port, (err) => {
   if (err) {
-    return console.log('something bad happened', err)
+    return console.log('something bad happened, cannot start listening webserver', err)
   }
 
   console.log(`server is listening on ${port}`)
