@@ -24,6 +24,18 @@ app.get('/', (request, response) => {
 		counter++;
 })
 
+app.post('/interact', function(request, response){
+	var type = request.body.Type;
+	if(type === "ShowText"){
+			console.log("ShowText request received:")
+			console.log(request.body.Payload);
+	}
+	else if(type === "ShowStatus"){
+		console.log("ShowStatus request received:")
+		console.log(request.body.Payload);
+	}
+})
+
 app.listen(port, (err) => {
   if (err) {
     return console.log('something bad happened, cannot start listening webserver', err)

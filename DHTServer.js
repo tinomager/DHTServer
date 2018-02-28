@@ -2,6 +2,7 @@ const express = require('express')
 var sensor = require('node-dht-sensor')
 var config = require('./config')
 const fs = require('fs');
+var python = require('python-shell')
 
 const app = express()
 const port = config.webserver_port
@@ -35,6 +36,28 @@ app.get('/', (request, response) => {
 app.get('/downloadlogs', (request, response) => {
 	var filename = config.logfile_directory + '/' + config.logfile_filename;
 	response.download(filename);
+})
+
+app.post('/interact', function(request, response){
+	var type = request.body.Type;
+	if(type === "ShowText"){
+		var options = {
+			mode: 'text',
+			//pythonPath: 'path/to/python',
+			pythonOptions: ['-u'],
+			//scriptPath: 'showtext.py',
+			args: [request.body.Payload]
+		};
+
+		python.run('showtext.py', options, function (err, results) {
+			if (err) throw err;
+			// results is an array consisting of messages collected during execution
+			console.log('results: %j', results);
+		});
+	}
+	else if(type === "ShowStatus"){
+
+	}
 })
 
 app.listen(port, (err) => {
