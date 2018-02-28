@@ -26,6 +26,11 @@ app.get('/', (request, response) => {
 
 app.post('/interact', function(request, response){
 	console.log("Received POST with body: " + request.body);
+
+	if(request.body === undefined || request.body.Type === undefined || request.body.Payload === undefined){
+		return '{ Error : "Body missing with elements Type and Payload"}';
+	}
+
 	var type = request.body.Type;
 	if(type === "ShowText"){
 			console.log("ShowText request received:")
