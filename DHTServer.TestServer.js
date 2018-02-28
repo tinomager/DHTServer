@@ -25,6 +25,7 @@ app.get('/', (request, response) => {
 })
 
 app.post('/interact', function(request, response){
+	console.log("Received POST with body: " + request.body);
 	var type = request.body.Type;
 	if(type === "ShowText"){
 			console.log("ShowText request received:")
