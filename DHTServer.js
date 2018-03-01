@@ -1,11 +1,14 @@
 const express = require('express')
 var sensor = require('node-dht-sensor')
 var config = require('./config')
-const fs = require('fs');
+const fs = require('fs')
 var python = require('python-shell')
+var bodyParser = require('body-parser')
 
 const app = express()
 const port = config.webserver_port
+
+var jsonParser = bodyParser.json();
 
 app.get('/', (request, response) => {
   sensor.read(22, config.dht_gpio_pin, function(err, temp, hum)
@@ -38,9 +41,10 @@ app.get('/downloadlogs', (request, response) => {
 	response.download(filename);
 })
 
-app.post('/interact', function(request, response){
+app.post('/interact', jsonParser, function(request, response){
+	console.log(request.body);
 	if(request.body === undefined || request.body.Type === undefined || request.body.Payload === undefined){
-		return '{ Error : "Body missing with elements Type and Payload"}';
+		response.send('{ Error : "Body missing with elements Type and Payload"}');
 	}
 
 	var type = request.body.Type;
@@ -62,6 +66,8 @@ app.post('/interact', function(request, response){
 	else if(type === "ShowStatus"){
 
 	}
+
+	response.send("Ok");
 })
 
 app.listen(port, (err) => {
