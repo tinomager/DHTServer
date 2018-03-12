@@ -126,6 +126,6 @@ for scroll in range(text_width - width):
     unicornhathd.show()
 
     # And sleep for a little bit, so it doesn't scroll too quickly!
-    time.sleep(0.02)
+    time.sleep(0.05)
 
 unicornhathd.off()
