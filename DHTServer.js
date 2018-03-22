@@ -68,11 +68,23 @@ app.post('/interact', jsonParser, function(request, response){
 		var level = payload.CommandLevel;
 		var temp = payload.Temperature;
 		var hum = payload.Humidity;
-		
+		var color = "";
+
+		if(level.toLowerCase() == "critical")
+		{
+			color = "red";
+		}
+		else if(level.toLowerCase() == "warning"){
+			color = "yellow";
+		}
+		else{
+			color = "green";
+		}
+
 		var flashOptions = {
 			mode: 'text',
 			pythonOptions: ['-u'],
-			args: [request.body.Payload]
+			args: [color, temp, hum]
 		};
 
 		python.run('flash-colors.py', flashOptions, function (err, results) {
