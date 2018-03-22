@@ -16,6 +16,26 @@ brightness = 0.1
 increase = 1
 turns = 3
 
+color = sys.argv[1]
+
+if(color == "red")
+    r = 255
+    g = 0
+    b = 0
+elif(color == "yellow")
+    r = 255
+    g = 255
+    b = 0
+elif(color == "green")
+    r = 0
+    g = 255
+    b = 0
+else
+    r = 255
+    g = 0
+    b = 0
+
+
 unicornhathd.rotation(0)
 unicornhathd.brightness(brightness)
 
@@ -25,9 +45,6 @@ width, height = unicornhathd.get_shape()
 for z in range(turns * 24):
     for x in range(width):
         for y in range(height):
-            r = 255
-            g = 0
-            b = 0
             unicornhathd.set_pixel(x, y, r, g, b)
     
     if increase:

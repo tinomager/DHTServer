@@ -64,7 +64,22 @@ app.post('/interact', jsonParser, function(request, response){
 		});
 	}
 	else if(type === "ShowStatus"){
+		var payload = JSON.parse(request.body.Payload);
+		var level = payload.CommandLevel;
+		var temp = payload.Temperature;
+		var hum = payload.Humidity;
+		
+		var flashOptions = {
+			mode: 'text',
+			pythonOptions: ['-u'],
+			args: [request.body.Payload]
+		};
 
+		python.run('flash-colors.py', flashOptions, function (err, results) {
+			if (err) throw err;
+			// results is an array consisting of messages collected during execution
+			console.log('results: %j', results);
+		});
 	}
 
 	response.send("Ok");

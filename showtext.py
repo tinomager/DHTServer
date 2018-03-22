@@ -13,17 +13,6 @@ except ImportError:
 
 import unicornhathd
 
-
-print("""Unicorn HAT HD: Text
-
-This example shows how to draw, display and scroll text in a regular TrueType font on Unicorn HAT HD.
-
-It uses the Python Pillow/PIL image library, and all other drawing functions are available.
-
-See: http://pillow.readthedocs.io/en/3.1.x/reference/
-
-""")
-
 ############# Change the text you want to display, and font, here ################
 
 TEXT = sys.argv[1]
