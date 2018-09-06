@@ -2,8 +2,9 @@ const express = require('express')
 var sensor = require('node-dht-sensor')
 var config = require('./config')
 const fs = require('fs')
-var python = require('python-shell')
+var PythonShell = require('python-shell').PythonShell
 var bodyParser = require('body-parser')
+
 
 const app = express()
 const port = config.webserver_port
@@ -56,8 +57,8 @@ app.post('/interact', jsonParser, function(request, response){
 			//scriptPath: 'showtext.py',
 			args: [request.body.Payload]
 		};
-
-		python.run('showtext.py', options, function (err, results) {
+		
+		PythonShell.run('showtext.py', options, function (err, results) {
 			if (err) throw err;
 			// results is an array consisting of messages collected during execution
 			console.log('results: %j', results);
@@ -87,7 +88,7 @@ app.post('/interact', jsonParser, function(request, response){
 			args: [color, temp, hum]
 		};
 
-		python.run('flash-colors.py', flashOptions, function (err, results) {
+		PythonShell.run('flash-colors.py', flashOptions, function (err, results) {
 			if (err) throw err;
 			// results is an array consisting of messages collected during execution
 			console.log('results: %j', results);

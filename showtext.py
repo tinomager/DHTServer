@@ -17,6 +17,19 @@ import unicornhathd
 
 TEXT = sys.argv[1]
 
+COLOR = None
+if len(sys.argv) > 3:
+    COLOR = sys.argv[2]
+
+USEFIXEDCOLOR = False 
+if COLOR is not None:
+    COLORARRAY = COLOR.split(",")
+    if len(COLORARRAY) is 3:
+        fixedR = COLORARRAY[0]
+        fixedG = COLORARRAY[1]
+        fixedB = COLORARRAY[2]
+        USEFIXEDCOLOR = True
+
 FONT = ("/usr/share/fonts/truetype/freefont/FreeSansBold.ttf", 12)
 
 # Use `fc-list` to show a list of installed fonts on your system,
@@ -83,7 +96,12 @@ for scroll in range(text_width - width):
         # This list comprehension is just a tidy way of converting the range 0.0 to 1.0
         # that hsv_to_rgb returns into integers in the range 0-255.
         # hsv_to_rgb returns a tuple of (r, g, b)
-        br, bg, bb = [int(n * 255) for n in colorsys.hsv_to_rgb(hue, 1.0, 1.0)]
+        if USEFIXEDCOLOR:
+                br = int(fixedR)
+                bg = int(fixedG)
+                bb = int(fixedB)
+        else:
+                br, bg, bb = [int(n * 255) for n in colorsys.hsv_to_rgb(hue, 1.0, 1.0)]
 
         # Since our rainbow runs from left to right along the x axis, we can calculate it once
         # for every vertical line on the display, and then re-use that value 16 times below:
@@ -110,6 +128,7 @@ for scroll in range(text_width - width):
 
             # Finally we colour in our finished pixel on Unicorn HAT HD
             unicornhathd.set_pixel(width-1-x, y, r, g, b)
+            
 
     # Finally, for each step in our scroll, we show the result on Unicorn HAT HD
     unicornhathd.show()
