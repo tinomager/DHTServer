@@ -50,12 +50,16 @@ app.post('/interact', jsonParser, function(request, response){
 
 	var type = request.body.Type;
 	if(type === "ShowText"){
+		var textPayload = JSON.parse(request.body.Payload);
+		var txt = textPayload.Text;
+		var color = textPayload.Color;
+
 		var options = {
 			mode: 'text',
 			//pythonPath: 'path/to/python',
 			pythonOptions: ['-u'],
 			//scriptPath: 'showtext.py',
-			args: [request.body.Payload]
+			args: [txt, color]
 		};
 		
 		PythonShell.run('showtext.py', options, function (err, results) {
